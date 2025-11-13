@@ -30,7 +30,7 @@ public class Kunde {
     public ArrayList<Plads> bestiltePladserTilForestillingPådag(Forstilling forstilling, LocalDate date){
         ArrayList<Plads> pladser = new ArrayList<>();
         for (Bestilling bestilling : bestillinger) {
-            if(bestilling.getDate() == date && bestilling.getForstilling() == forstilling){
+            if(bestilling.getDate().equals(date) && bestilling.getForstilling() == forstilling){
                 pladser.addAll(bestilling.getPladser());
             }
         }

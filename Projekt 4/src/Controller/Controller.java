@@ -38,24 +38,24 @@ public class Controller {
             return null;
         }
 
-        if (!(forestilling.getStartDato().isBefore(dato) || forestilling.getStartDato().isEqual(dato)) &&
-                (forestilling.getSlutDato().isAfter(dato) || forestilling.getSlutDato().isEqual(dato))) {
+        if (!((forestilling.getStartDato().isBefore(dato) || forestilling.getStartDato().isEqual(dato)) &&
+                (forestilling.getSlutDato().isAfter(dato) || forestilling.getSlutDato().isEqual(dato)))) {
             return null;
         }
         for (Plads plads : pladser) {
             if (!forestilling.erPladsenLedig(plads.getRække(), plads.getNummer(), dato)) {
                 return null;
             }
-            Bestilling bestilling = new Bestilling(dato, forestilling, kunde);
-            for (Plads plads1 : pladser) {
-                bestilling.addPlads(plads1);
-            }
-            forestilling.addBestilling(bestilling);
-            kunde.addBestilling(bestilling);
-
-            return bestilling;
         }
-        return null;
+        
+        Bestilling bestilling = new Bestilling(dato, forestilling, kunde);
+        for (Plads plads : pladser) {
+            bestilling.addPlads(plads);
+        }
+        forestilling.addBestilling(bestilling);
+        kunde.addBestilling(bestilling);
+
+        return bestilling;
     }
 }
 
